@@ -55,7 +55,7 @@ Enter the Header configuration. You can copy your kid from the public key record
 
 ```json
 {
-  "alg": "HS256",
+  "alg": "RS256",
   "typ": "JWT",
   "kid": "a0935738-6fc8-4a78-9fe7-650ab965ee16"
 }
@@ -64,7 +64,7 @@ Enter the Header configuration. You can copy your kid from the public key record
 Let`s encypt header.
 
 ```shell
-echo -n '{"alg": "HS256","typ": "JWT","kid": "a0935738-6fc8-4a78-9fe7-650ab965ee16"}' | base64 | sed s/\+/-/ | sed -E s/=+$//
+echo -n '{"alg": "RS256","typ": "JWT","kid": "a0935738-6fc8-4a78-9fe7-650ab965ee16"}' | base64 | sed s/\+/-/ | sed -E s/=+$//
 ```
 
 Enter Payload information. You need enter your audiance info and expiration settings. You need use epoch(Unix Time) to set your expiration time. 
