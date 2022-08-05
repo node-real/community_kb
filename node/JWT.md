@@ -49,7 +49,7 @@ You will get a JWT public key record as below. You need copy the ID here for the
 
 ### Generate your JWT 
 
-You can login to the [jwt](jwt.io) to generate your JWT. Open debugger, and enter the corresponding information. 
+You can login to the [jwt](https://jwt.io) to generate your JWT. Open debugger, and enter the corresponding information. 
 
 Enter the Header configuration. You can copy your kid from the public key record mentioned above.
 
