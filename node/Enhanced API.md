@@ -407,7 +407,64 @@ This an API that returns the metadata of a Token using its contract address as a
 
 #### Request Body 
 
+```yaml
+requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                method:
+                  type: string
+                  example: nr_getTokenMeta
+                jsonrpc:
+                  type: string
+                  example: '2.0'
+                params:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d'
+```
+
 #### Response
+
+```yaml
+responses:
+        '200':
+          description: A JSON array of user names
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 1
+                  jsonrpc:
+                    type: string
+                    example: '2.0'
+                  result:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                        example: USD Coin
+                      symbol:
+                        type: string
+                        example: USDC
+                      decimails:
+                        type: integer
+                        example: 18
+                      tokenType:
+                        type: string
+                        example: ERC20
+```
 
 #### Example
 
