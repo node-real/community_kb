@@ -398,3 +398,47 @@ curl -X 'POST' \
 ```
 
 ### 
+
+### nr_getTokenMeta
+
+#### Metadata of a Token
+
+This an API that returns the metadata of a Token using its contract address as a paramater. Metadata summarises the basic information about the data.
+
+#### Request Body 
+
+#### Response
+
+#### Example
+
+CURL request
+
+```shell
+curl -X 'POST' \
+  'https://apus-swagger.fe.nodereal.cc/nr_getTokenMeta' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": 1,
+  "method": "nr_getTokenMeta",
+  "jsonrpc": "2.0",
+  "params": [
+    "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d"
+  ]
+}'
+```
+
+#### Response
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "name": "USD Coin",
+    "symbol": "USDC",
+    "decimals": 18,
+    "tokenType": "ERC20"
+  }
+}
+```
