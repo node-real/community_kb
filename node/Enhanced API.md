@@ -593,7 +593,7 @@ curl -X 'POST' \
 
 #### Returns the balance of an ERC20/BEP20 token of an address.
 
-This API returns the balance of an ERC20/BEP20 using a specified contract address of the token, account address, and block number (latest,earliest,or specific hex value)
+This API returns the balance of an ERC20/BEP20 using a specified contract address of the token, account address, and block number (latest,earliest,or specific hex value).
 
 **Note**: If the contract has not balanceOf(address account) method, api will return error.
 
@@ -1086,6 +1086,136 @@ curl -X 'POST' \
         "tokenIdNum": "0x1",
         "tokenName": "Pancake Bunnies",
         "tokenSymbol": "PB"
+      }
+    ]
+  }
+}
+```
+
+### nr_getNFTInventory
+
+#### Returns the BEP-721/1155 token inventory of an address, filtered by contract address
+
+For reach account wallet holding an NFT, this API can return the inventory by having the account address, token address and page number. If more results, page Id can be returned on the response.
+
+#### Request Body
+
+```yaml
+requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                method:
+                  type: string
+                  example: nr_getNFTInventory
+                jsonrpc:
+                  type: string
+                  example: '2.0'
+                params:
+                  type: array
+                  description: >- 
+                    
+                    - accountAddress: account address.
+
+                    - contractAddress: contract address.
+
+                    - pageSize: each page return at most pageSize items. pageSize is hex encoded and should be less equal than 100.
+
+                    - pageId: If more results are available, a pageId be returned in the response. Pass the pageId to fetch the next pageSize items. First it should be empty.
+
+                  example:
+                    - '0x0042f9b78c67eb30c020a56d07f9a2fc83bc2514'
+                    - '0x64aF96778bA83b7d4509123146E2B3b07F7deF52'
+                    - '0x14'
+                    - ''
+```
+
+#### Response
+
+```yaml
+responses:
+        '200':
+          description: A JSON array of tokens and amount
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 1
+                  jsonrpc:
+                    type: string
+                    example: '2.0'
+                  result:
+                    type: object
+                    properties:
+                      pageId:
+                        type: string
+                        example: '100_342'
+                      details:
+                        type: array
+                        description: 'tokenAddress,tokenName,tokenSymbol,balance'
+                        items:
+                          type: object
+                          properties:
+                            tokenAddress:
+                              type: string
+                              example: '0x5e74094cd416f55179dbd0e45b1a8ed030e396a1'
+                            tokenId:
+                              type: string
+                              example: '0x0000000000000000000000000000000000000000f'
+                            balance:
+                              type: string
+                              example: '0x00000000000000000000000000000000000000001'
+```
+
+#### Example
+
+CURL request
+
+```shell
+curl -X 'POST' \
+  'https://apus-swagger.fe.nodereal.cc/nr_getNFTInventory' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": 1,
+  "method": "nr_getNFTInventory",
+  "jsonrpc": "2.0",
+  "params": [
+    "0x0042f9b78c67eb30c020a56d07f9a2fc83bc2514",
+    "0x64aF96778bA83b7d4509123146E2B3b07F7deF52",
+    "0x14",
+    ""
+  ]
+}'
+```
+
+#### Response
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "pageId": "",
+    "details": [
+      {
+        "tokenAddress": "0x64af96778ba83b7d4509123146e2b3b07f7def52",
+        "tokenId": "0x0000000000000000000000000000000000000000000000000000000004010006",
+        "balance": "0x0000000000000000000000000000000000000000000000000000000000000001"
+      },
+      {
+        "tokenAddress": "0x64af96778ba83b7d4509123146e2b3b07f7def52",
+        "tokenId": "0x0000000000000000000000000000000000000000000000000000000005000004",
+        "balance": "0x0000000000000000000000000000000000000000000000000000000000008c4f"
       }
     ]
   }
