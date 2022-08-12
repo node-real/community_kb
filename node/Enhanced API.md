@@ -686,7 +686,7 @@ curl -X 'POST' \
 
 #### BEP20 token holdings of an address
 
-When calling this API, it will return a list of BEP20 tokens being held on a specified account address and page size (<100) in hexcode as parameters.
+When calling this API, it will return a list of BEP20 tokens being held on a specified account address and set page (<100 page size) in hexcode as parameters.
 
 **Note**: The API will return empty name and symbol if the token address does not have name and symbol functions.
 
@@ -831,6 +831,139 @@ curl -X 'POST' \
         "tokenName": "swap-bal.io",
         "tokenSymbol": "BAL",
         "tokenDecimals": "0x12"
+      }
+    ]
+  }
+}
+```
+
+### nr_getTokenHolders
+
+#### Token holders and amount of tokens held
+
+This API returns a list of token holders and the amount of the tokens being held for each account address depending on the set page size. If there are more results, then a page Id can be returned as part of the response.
+
+#### Request Body
+
+```yaml
+requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                method:
+                  type: string
+                  example: nr_getTokenHolders
+                jsonrpc:
+                  type: string
+                  example: '2.0'
+                params:
+                  type: array
+                  description: >-
+                    
+                    - contract address.
+
+                    - pageSize: each page return at most pageSize items. pageSize is hex encoded and should be less equal than 100.
+
+                    - pageId: If more results are available, a pageId be returned in the response. Pass the pageId to fetch the next pageSize items. First it should be empty.
+
+                  example:
+                    - '0xcea59dce6a6d73a24e6d6944cfabc330814c098a'
+                    - '0x14'
+                    - ''
+```
+
+#### Response
+
+```yaml
+responses:
+        '200':
+          description: A JSON array of tokens and amount
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 1
+                  jsonrpc:
+                    type: string
+                    example: '2.0'
+                  result:
+                    type: object
+                    properties:
+                      pageId:
+                        type: string
+                        example: '100_342'
+                      details:
+                        type: array
+                        description: 'accountAddress,tokenBalance'
+                        items:
+                          type: object
+                          properties:
+                            accountAddress:
+                              type: string
+                              example: '0x00000000100f9d75535cbf23f82e23db5558e8c1'
+                            tokenBalance:
+                              type: string
+                              example: '0x0000000000000000000000000000000000000000f'
+```
+
+#### Example
+
+CURL request
+
+```shell
+curl -X 'POST' \
+  'https://apus-swagger.fe.nodereal.cc/nr_getTokenHolders' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": 1,
+  "method": "nr_getTokenHolders",
+  "jsonrpc": "2.0",
+  "params": [
+    "0xcea59dce6a6d73a24e6d6944cfabc330814c098a",
+    "0x5",
+    ""
+  ]
+}'
+```
+
+#### Response
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "pageId": "5_1764857",
+    "details": [
+      {
+        "accountAddress": "0xcea59DCE6A6d73a24e6d6944CFaBc330814c098A",
+        "tokenBalance": "0x00000000000000000000000000000000000000000000032d26d200d7ec7c870b"
+      },
+      {
+        "accountAddress": "0xd44A938BC56d970445417BdA4d1A996CeD32CC0b",
+        "tokenBalance": "0x0000000000000000000000000000000000000000000003cfc82e37e9a7400000"
+      },
+      {
+        "accountAddress": "0x99b3CD11641f575831A9201FA4F8AdAc81911bDc",
+        "tokenBalance": "0x000000000000000000000000000000000000000000f6c48721562c9c464bbf8b"
+      },
+      {
+        "accountAddress": "0xd977295501f57AbD2CaB2255f5E8A04D23946Ef8",
+        "tokenBalance": "0x000000000000000000000000000000000000000000050390220a831580809986"
+      },
+      {
+        "accountAddress": "0x2be87aD70Cf11EA294d7c42044b5b8277A3E4874",
+        "tokenBalance": "0x0000000000000000000000000000000000000000000000129ba0f8031f266edd"
       }
     ]
   }
