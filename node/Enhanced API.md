@@ -593,7 +593,7 @@ curl -X 'POST' \
 
 #### Returns the balance of an ERC20/BEP20 token of an address.
 
-This API returns the balance of an ERC20/BEP20 using a specified contract address of the token, wallet address, and block number (latest,earliest,or specific hex value)
+This API returns the balance of an ERC20/BEP20 using a specified contract address of the token, account address, and block number (latest,earliest,or specific hex value)
 
 **Note**: If the contract has not balanceOf(address account) method, api will return error.
 
@@ -679,5 +679,160 @@ curl -X 'POST' \
   "jsonrpc": "2.0",
   "id": 1,
   "result": "0x000000000000000000000000000000000000000002e04bb41ca9ed87e4b22cb6"
+}
+```
+
+### nr_getTokenHoldings
+
+#### BEP20 token holdings of an address
+
+When calling this API, it will return a list of BEP20 tokens being held on a specified account address and page size (<100) in hexcode as parameters.
+
+**Note**: The API will return empty name and symbol if the token address does not have name and symbol functions.
+
+#### Request Body
+
+```yaml
+requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                method:
+                  type: string
+                  example: nr_getTokenHoldings
+                jsonrpc:
+                  type: string
+                  example: '2.0'
+                params:
+                  type: array
+                  description: >-
+                    
+                    - accountAddress: account address.
+
+                    - page: page is hex encoded.
+                    
+                    - pageSize: each page return at most pageSize items. pageSize is hex encoded and should be less equal than 100.
+
+                  example:
+                    - '0x0E34aD56379aceC7F09d815729B70c85adC1Ec99'
+                    - '0x1'
+                    - '0x12'
+```
+
+#### Response
+
+```yaml
+responses:
+        '200':
+          description: A JSON array of tokens and amount
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 1
+                  jsonrpc:
+                    type: string
+                    example: '2.0'
+                  result:
+                    type: object
+                    properties:
+                      details:
+                        type: array
+                        description: 'tokenAddress,tokenName,tokenSymbol,tokenDecimails(hex encoded),tokenBalance'
+                        items:
+                          type: object
+                          properties:
+                            tokenAddress:
+                              type: string
+                              example: '0xfcb5DF42e06A39E233dc707bb3a80311eFD11576'
+                            tokenName:
+                              type: string
+                              example: 'www.METH.co.in'
+                            tokenSymbol:
+                              type: string
+                              example: 'METH'
+                            tokenDecimails:
+                              type: string
+                              example: '0x12'
+                            tokenBalance:
+                              type: string
+                              example: '0x0000000000000000000000000000000000000000f'
+```
+
+#### Example
+
+CURL request
+
+```shell
+curl -X 'POST' \
+  'https://apus-swagger.fe.nodereal.cc/nr_getTokenHoldings' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": 1,
+  "method": "nr_getTokenHoldings",
+  "jsonrpc": "2.0",
+  "params": [
+    "0x0E34aD56379aceC7F09d815729B70c85adC1Ec99",
+    "0x1",
+    "0x5"
+  ]
+}'
+```
+
+#### Response
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "details": [
+      {
+        "tokenAddress": "0x04645027122c9f152011f128c7085449b27cb6d7",
+        "tokenBalance": "0x00000000000000000000000000000000000000000000a968163f0a57b4000000",
+        "tokenName": "ARKR.org",
+        "tokenSymbol": "ARKR.org",
+        "tokenDecimals": "0x12"
+      },
+      {
+        "tokenAddress": "0x0487b824c8261462f88940f97053e65bdb498446",
+        "tokenBalance": "0x000000000000000000000000000000000000000000000000016345785d8a0000",
+        "tokenName": "JetSwap Token",
+        "tokenSymbol": "WINGS",
+        "tokenDecimals": "0x12"
+      },
+      {
+        "tokenAddress": "0x09e6733a59f329a408abb387e29e69ba3582a5af",
+        "tokenBalance": "0x00000000000000000000000000000000000000000000062417d8af6a38200000",
+        "tokenName": "VenLP.com",
+        "tokenSymbol": "Venus-LP",
+        "tokenDecimals": "0x12"
+      },
+      {
+        "tokenAddress": "0x0df62d2cd80591798721ddc93001afe868c367ff",
+        "tokenBalance": "0x00000000000000000000000000000000000000000000a968163f0a57b4000000",
+        "tokenName": "TheVera.io",
+        "tokenSymbol": "VERA",
+        "tokenDecimals": "0x12"
+      },
+      {
+        "tokenAddress": "0x108f5f2b2d68f4075d5753caf41da293dd4bc2b5",
+        "tokenBalance": "0x000000000000000000000000000000000000000000000038baf2d5e3da3c0d82",
+        "tokenName": "swap-bal.io",
+        "tokenSymbol": "BAL",
+        "tokenDecimals": "0x12"
+      }
+    ]
+  }
 }
 ```
