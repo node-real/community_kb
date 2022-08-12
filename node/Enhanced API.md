@@ -122,7 +122,7 @@ curl --location --request POST 'https://bsc-mainnet.nodereal.io/v1/{your-api-key
 
 Compared with ERC 1155, every ERC 721 token is unique. Therefore the balance of ERC 721 is the number of unique tokens of an owner. The API returns the number of NFTs in owner’s account. The contract address is usually a collection contract address, which includes a collection of NFTs.
 
-**Note**: If the contract has not balanceOfbalanceOf(address owner) method, api will return error.
+**Note**: If the contract doesn't have a balanceOfbalanceOf(address owner) method, the API will return an error.
 
 #### Request Body 
 
@@ -217,7 +217,7 @@ curl -X 'POST' \
 
 This function is to used to return the total number of tokens of a contract. Usually you can use this API to query the total amount of a collection of NFTs.
 
-**Note**: If the contract has not totalsupply() method, api will return error.
+**Note**: If the contract doesn't have totalsupply() method, the API will return an error.
 
 #### Request Body 
 
@@ -308,7 +308,7 @@ curl -X 'POST' \
 
 This function is to used to return the total number of a token of one contract. Different from ERC721, ERC1155 token id is a collection of tokens that can be converted to NFT. For exmaple, when you want to query the total number of a type of swords in your game, and this type swords will be associated with the token id, then you can use this API get the total number of the swords.
 
-**Note**: If the contract has not totalsupply(uint256 id) method, api will return error.
+**Note**: If the contract doesn't have totalsupply(uint256 id) method, the API will return an error.
 
 #### Request Body 
 
@@ -504,7 +504,7 @@ curl -X 'POST' \
 
 For each ERC20/BEP20 token, there's a specified total supply. Total supply is the amount of coins that have already been created, minus any coins that have been burned or removed from circulation.
 
-**Note**: If the contract has not totalSupply() method, api will return error.
+**Note**: If the contract doesn't have totalSupply() method, the API will return an error.
 
 #### Request Body
 
@@ -841,7 +841,7 @@ curl -X 'POST' \
 
 #### Token holders and amount of tokens held
 
-This API returns a list of token holders and the amount of the tokens being held for each account address depending on the set page size. If there are more results, then a page Id can be returned as part of the response.
+This API returns a list of token holders and the amount of the tokens being held for each account address depending on the set token address and page size. If there are more results, then a page Id can be returned as part of the response.
 
 #### Request Body
 
