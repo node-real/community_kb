@@ -1096,7 +1096,7 @@ curl -X 'POST' \
 
 #### Returns the BEP-721/1155 token inventory of an address, filtered by contract address
 
-For reach account wallet holding an NFT, this API can return the inventory by having the account address, token address and page number. If more results, page Id can be returned on the response.
+For reach account address holding an NFT, this API can return the inventory by having the account address, token address and page number as parameters. If more results, page Id can be returned on the response.
 
 #### Request Body
 
