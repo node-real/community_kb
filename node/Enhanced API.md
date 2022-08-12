@@ -397,13 +397,11 @@ curl -X 'POST' \
 }
 ```
 
-### 
-
 ### nr_getTokenMeta
 
 #### Metadata of a Token
 
-This an API that returns the metadata of a Token using its contract address as a paramater. Metadata summarises the basic information about the data.
+This is an API that returns the metadata of a Token using its contract address as a paramater. Metadata summarises the basic information about the data.
 
 #### Request Body 
 
@@ -497,5 +495,96 @@ curl -X 'POST' \
     "decimals": 18,
     "tokenType": "ERC20"
   }
+}
+```
+
+### nr_getTotalSupply20
+
+#### Total supply of an ERC20/BEP20 token
+
+For each ERC20/BEP20 token, there's a specified total supply. Total supply is the amount of coins that have already been created, minus any coins that have been burned or removed from circulation.
+
+**Note**: If the contract has not totalSupply() method, api will return error.
+
+#### Request Body
+
+```yaml
+requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                method:
+                  type: string
+                  example: nr_getTotalSupply20
+                jsonrpc:
+                  type: string
+                  example: '2.0'
+                params:
+                  type: array
+                  description: address,blockNumber(latest,earliest,or specific hex value)
+                  items:
+                    type: string
+                  example:
+                    - '0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d'
+                    - latest
+```
+
+#### Response
+
+```yaml
+responses:
+        '200':
+          description: Total supply of token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 1
+                  jsonrpc:
+                    type: string
+                    example: '2.0'
+                  result:
+                    type: string
+                    description: 32-byte fixed-length hexadecimal number
+                    example: >-
+                      0x000000000000000000000000000000000000000005bf8de73e1a17553e3e59d4
+```
+
+#### Example
+
+CURL request
+
+```shell
+curl -X 'POST' \
+  'https://apus-swagger.fe.nodereal.cc/nr_getTotalSupply20' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": 1,
+  "method": "nr_getTotalSupply20",
+  "jsonrpc": "2.0",
+  "params": [
+    "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",
+    "latest"
+  ]
+}'
+```
+
+#### Response
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": "0x0000000000000000000000000000000000000000061245ba1ae22428223e59d4"
 }
 ```
