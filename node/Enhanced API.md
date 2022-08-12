@@ -588,3 +588,96 @@ curl -X 'POST' \
   "result": "0x0000000000000000000000000000000000000000061245ba1ae22428223e59d4"
 }
 ```
+
+### nr_getTokenBalance20
+
+#### Returns the balance of an ERC20/BEP20 token of an address.
+
+This API returns the balance of an ERC20/BEP20 using a specified contract address of the token, wallet address, and block number (latest,earliest,or specific hex value)
+
+**Note**: If the contract has not balanceOf(address account) method, api will return error.
+
+#### Request Body
+
+```yaml
+requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                method:
+                  type: string
+                  example: nr_getTokenBalance20
+                jsonrpc:
+                  type: string
+                  example: '2.0'
+                params:
+                  type: array
+                  description: 'contract address,account address,blockNumber(latest,earliest,or specific hex value)'
+                  items:
+                    type: string
+                  example:
+                    - '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56'
+                    - '0x8894e0a0c962cb723c1976a4421c95949be2d4e3'
+                    - '0x1312D00'
+```
+
+#### Response
+
+```yaml
+responses:
+        '200':
+          description: The balance of an ERC-20/BEP20 token of an address
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 1
+                  jsonrpc:
+                    type: string
+                    example: '2.0'
+                  result:
+                    type: string
+                    description: 32-byte fixed-length hexadecimal number
+                    example: >-
+                      0x000000000000000000000000000000000000000002e04bb41ca9ed87e4b22cb6
+```
+
+#### Example
+
+CURL request
+
+```shell
+curl -X 'POST' \
+  'https://apus-swagger.fe.nodereal.cc/nr_getTokenBalance20' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": 1,
+  "method": "nr_getTokenBalance20",
+  "jsonrpc": "2.0",
+  "params": [
+    "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56",
+    "0x8894e0a0c962cb723c1976a4421c95949be2d4e3",
+    "0x1312D00"
+  ]
+}'
+```
+
+#### Response
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": "0x000000000000000000000000000000000000000002e04bb41ca9ed87e4b22cb6"
+}
+```
