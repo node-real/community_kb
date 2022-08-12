@@ -969,3 +969,125 @@ curl -X 'POST' \
   }
 }
 ```
+
+### nr_getNFTHoldings
+
+#### BEP-721/1155 token holdings information
+
+This API returns the token address, quantity, token name and symbol. The parameters needed are the account address, token type(erc721/erc1155), page number and page size (<100).
+
+#### Request Body
+
+```yaml
+requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                method:
+                  type: string
+                  example: nr_getNFTHoldings
+                jsonrpc:
+                  type: string
+                  example: '2.0'
+                params:
+                  type: array
+                  description: 'account address,token type(erc721/erc1155),page(hex encoded),page size(hex encode, should less than 100)'
+                  example:
+                    - '0x99817ce62abf5b17f58e71071e590cf958e5a1bf'
+                    - 'erc721'
+                    - '0x1'
+                    - '0x14'
+```
+
+#### Response
+
+```yaml
+responses:
+        '200':
+          description: A JSON array of tokens and amount
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 1
+                  jsonrpc:
+                    type: string
+                    example: '2.0'
+                  result:
+                    type: object
+                    properties:
+                      details:
+                        type: array
+                        description: 'tokenAddress,tokenName,tokenSymbol,nftNum(hex encoded)'
+                        items:
+                          type: object
+                          properties:
+                            tokenAddress:
+                              type: string
+                              example: '0xfcb5DF42e06A39E233dc707bb3a80311eFD11576'
+                            tokenName:
+                              type: string
+                              example: 'Pancake Lottery Ticket'
+                            tokenSymbol:
+                              type: string
+                              example: 'PLT'
+                            tokenIdNum:
+                              type: string
+                              example: '0x10'
+```
+
+#### Example
+
+CURL request
+
+```shell
+curl -X 'POST' \
+  'https://apus-swagger.fe.nodereal.cc/nr_getNFTHoldings' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": 1,
+  "method": "nr_getNFTHoldings",
+  "jsonrpc": "2.0",
+  "params": [
+    "0x99817ce62abf5b17f58e71071e590cf958e5a1bf",
+    "erc721",
+    "0x1",
+    "0x14"
+  ]
+}'
+```
+
+#### Response
+
+```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "details": [
+      {
+        "tokenAddress": "0x5e74094cd416f55179dbd0e45b1a8ed030e396a1",
+        "tokenIdNum": "0x12",
+        "tokenName": "Pancake Lottery Ticket",
+        "tokenSymbol": "PLT"
+      },
+      {
+        "tokenAddress": "0xdf7952b35f24acf7fc0487d01c8d5690a60dba07",
+        "tokenIdNum": "0x1",
+        "tokenName": "Pancake Bunnies",
+        "tokenSymbol": "PB"
+      }
+    ]
+  }
+}
+```
