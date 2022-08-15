@@ -1236,7 +1236,9 @@ curl -X 'POST' \
 
 #### Token holder account addresses
 
-The API returns a list of token holder account addresses using the contract address and token Id as parameters.
+When calling this API, it returns a list of token holder account addresses using the contract address and token Id as parameters. 
+
+Aside from blockchain explorers use case, another use of this API is for NFT projects to track the current holders of their NFT. Projects who usually keep track of these account addresses give the owner of these addresses special rewards during events and sometimes token airdrops as well.
 
 #### Request Body
 
@@ -1556,6 +1558,8 @@ curl -X 'POST' \
 #### Returns the NFT meta
 
 NFT metadata is basically the information of the NFT such as name, description, category, etc. The API returns this information by using the contract address, token Id, and token type (BEP721/1155).
+
+The returned metadata can usually be used on NFT marketplace to display the information mentioned above for a particula NFT.
 
 #### Request Body
 
