@@ -372,7 +372,7 @@ CURL request
 
 ```shell
 curl -X 'POST' \
-  'https://apus-swagger.fe.nodereal.cc/nr_getTotalSupply1155' \
+  'https://bsc-mainnet.nodereal.io/v1/{your-api-key}' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -470,7 +470,7 @@ CURL request
 
 ```shell
 curl -X 'POST' \
-  'https://apus-swagger.fe.nodereal.cc/nr_getTokenMeta' \
+  'https://bsc-mainnet.nodereal.io/v1/{your-api-key}' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -565,7 +565,7 @@ CURL request
 
 ```shell
 curl -X 'POST' \
-  'https://apus-swagger.fe.nodereal.cc/nr_getTotalSupply20' \
+  'https://bsc-mainnet.nodereal.io/v1/{your-api-key}' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -659,7 +659,7 @@ CURL request
 
 ```shell
 curl -X 'POST' \
-  'https://apus-swagger.fe.nodereal.cc/nr_getTokenBalance20' \
+  'https://bsc-mainnet.nodereal.io/v1/{your-api-key}' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -778,7 +778,7 @@ CURL request
 
 ```shell
 curl -X 'POST' \
-  'https://apus-swagger.fe.nodereal.cc/nr_getTokenHoldings' \
+  'https://bsc-mainnet.nodereal.io/v1/{your-api-key}' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -927,7 +927,7 @@ CURL request
 
 ```shell
 curl -X 'POST' \
-  'https://apus-swagger.fe.nodereal.cc/nr_getTokenHolders' \
+  'https://bsc-mainnet.nodereal.io/v1/{your-api-key}' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -1059,7 +1059,7 @@ CURL request
 
 ```shell
 curl -X 'POST' \
-  'https://apus-swagger.fe.nodereal.cc/nr_getNFTHoldings' \
+  'https://bsc-mainnet.nodereal.io/v1/{your-api-key}' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -1192,7 +1192,7 @@ CURL request
 
 ```shell
 curl -X 'POST' \
-  'https://apus-swagger.fe.nodereal.cc/nr_getNFTInventory' \
+  'https://bsc-mainnet.nodereal.io/v1/{your-api-key}' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -1302,7 +1302,7 @@ CURL request
 
 ```shell
 curl -X 'POST' \
-  'https://apus-swagger.fe.nodereal.cc/nr_getNFTHolders' \
+  'https://bsc-mainnet.nodereal.io/v1/{your-api-key}' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -1636,7 +1636,7 @@ CURL request
 
 ```shell
 curl -X 'POST' \
-  'https://apus-swagger.fe.nodereal.cc/nr_getNFTMeta' \
+  'https://bsc-mainnet.nodereal.io/v1/{your-api-key}' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
