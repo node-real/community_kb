@@ -1668,7 +1668,7 @@ curl -X 'POST' \
 
 ### nr_getNFTCollectionHolders
 
-#### Get Holders info of nft token for ERC1155/ERC721
+#### Get Holders info of NFT token for ERC1155/ERC721
 
 This API returns an NFT token holders account address, token Id and the token balance. 
 
