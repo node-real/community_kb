@@ -1668,18 +1668,90 @@ curl -X 'POST' \
 
 ### nr_getNFTCollectionHolders
 
-#### Description
+#### Get Holders info of nft token for ERC1155/ERC721
 
-text
+This API returns an NFT token holders account address, token Id and the token balance. 
+
+Developers of applications like blockchain explorers, NFT marketplace, and Wallet can utilize the API to get the information mentioned above and display it on their app's UI.
 
 #### Request Body
 
 ```yaml
+requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                method:
+                  type: string
+                  example: nr_getNFTCollectionHolders
+                jsonrpc:
+                  type: string
+                  example: '2.0'
+                params:
+                  type: array
+                  description: 'contractAddress, tokenType : "ERC721" or "ERC1155" withTokenBalances(optional)'
+                  items:
+                    type: string
+                  example:
+                    - "0xC244E2A5c6bbC89cfda2c32Ae0086052c95c3B55"
+                    - "ERC1155"
+                    - "0x14"
+                    - ""
 ```
 
 #### Response
 
 ```yaml
+responses:
+        '200':
+          description: A JSON Array
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 1
+                  jsonrpc:
+                    type: string
+                    example: '2.0'
+                  result:
+                    type: object
+                    properties:
+                      pageId:
+                        type: string
+                        example: "100_342"
+                      holderAddresses:
+                        type: array
+                        items:
+                          type: string
+                          example:
+                            - "0xc49982ec7d1e45baae96f9ea2cb65ac1acae282a"
+                            - "0x3988c52ac9a2f9b2e591e14e173161cec6ce98ff"
+                      holderAddressesWithBalances:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            ownerAddress:
+                              type: string
+                              example: "0x000001f568875f378bf6d170b790967fe429c81a"
+                            tokenBalances:
+                              type: object
+                              properties:
+                                tokenId:
+                                  type: string
+                                  example: "9446"
+                                balance:
+                                  type: string
+                                  example: "1"
 ```
 
 #### Example
@@ -1687,9 +1759,163 @@ text
 CURL request
 
 ```shell
+curl -X 'POST' \
+  'https://apus-swagger.fe.nodereal.cc/nr_getNFTCollectionHolders' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "id": 1,
+  "method": "nr_getNFTCollectionHolders",
+  "jsonrpc": "2.0",
+  "params": [
+    "0xC244E2A5c6bbC89cfda2c32Ae0086052c95c3B55",
+    "ERC1155",
+    "0x14",
+    ""
+  ]
+}'
 ```
 
 #### Response
 
 ```json
+{
+  "jsonrpc": "2.0",
+  "id": 1,
+  "result": {
+    "holderAddressesWithBalances": [
+      {
+        "holderAddress": "0x8e3ef2519aad607100b77f886d1bae4df8df418f",
+        "tokenBalances": [
+          {
+            "tokenId": "0x00000000000000000000000000000000000000000000000000000000000045f0",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000002"
+          },
+          {
+            "tokenId": "0x00000000000000000000000000000000000000000000000000000000000045f2",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000005"
+          },
+          {
+            "tokenId": "0x00000000000000000000000000000000000000000000000000000000000045f5",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000001"
+          },
+          {
+            "tokenId": "0x00000000000000000000000000000000000000000000000000000000000045f7",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000002"
+          }
+        ]
+      },
+      {
+        "holderAddress": "0x20bcb29fa20fe7307398a07b681fe5ddf7b509aa",
+        "tokenBalances": [
+          {
+            "tokenId": "0x00000000000000000000000000000000000000000000000000000000000045f5",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000001"
+          }
+        ]
+      },
+      {
+        "holderAddress": "0x6e641ac4762f4a90d7dc9b01aa39d6da19f92bc8",
+        "tokenBalances": [
+          {
+            "tokenId": "0x00000000000000000000000000000000000000000000000000000000000045fc",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000003"
+          }
+        ]
+      },
+      {
+        "holderAddress": "0x99809bfd4b923f33ec51882ce89c6991086c120b",
+        "tokenBalances": [
+          {
+            "tokenId": "0x00000000000000000000000000000000000000000000000000000000000045ff",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000004"
+          }
+        ]
+      },
+      {
+        "holderAddress": "0x891aab34cc082c0c7325c1349a2f9b815a4ad4a6",
+        "tokenBalances": [
+          {
+            "tokenId": "0x0000000000000000000000000000000000000000000000000000000000004605",
+            "balance": "0x000000000000000000000000000000000000000000000000000000000000000a"
+          }
+        ]
+      },
+      {
+        "holderAddress": "0x30deb35a2b4aa48a3c2ead291ae1bf0a21f71255",
+        "tokenBalances": [
+          {
+            "tokenId": "0x000000000000000000000000000000000000000000000000000000000000460d",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000001"
+          }
+        ]
+      },
+      {
+        "holderAddress": "0x903fe2471449b812a282041d46e34aaecb57986f",
+        "tokenBalances": [
+          {
+            "tokenId": "0x00000000000000000000000000000000000000000000000000000000000045fd",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000013"
+          }
+        ]
+      },
+      {
+        "holderAddress": "0x58e84d90fd976a183befb36a69cab464bef18cc5",
+        "tokenBalances": [
+          {
+            "tokenId": "0x00000000000000000000000000000000000000000000000000000000000045fe",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000008"
+          },
+          {
+            "tokenId": "0x0000000000000000000000000000000000000000000000000000000000004600",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000005"
+          },
+          {
+            "tokenId": "0x0000000000000000000000000000000000000000000000000000000000004601",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000014"
+          },
+          {
+            "tokenId": "0x0000000000000000000000000000000000000000000000000000000000004604",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000004"
+          },
+          {
+            "tokenId": "0x000000000000000000000000000000000000000000000000000000000000460a",
+            "balance": "0x000000000000000000000000000000000000000000000000000000000000000a"
+          },
+          {
+            "tokenId": "0x000000000000000000000000000000000000000000000000000000000000460b",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000001"
+          },
+          {
+            "tokenId": "0x000000000000000000000000000000000000000000000000000000000000460e",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000062"
+          }
+        ]
+      },
+      {
+        "holderAddress": "0x780451a32959a96789f99398deb6678d2c438eb4",
+        "tokenBalances": [
+          {
+            "tokenId": "0x00000000000000000000000000000000000000000000000000000000000045ff",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000001"
+          },
+          {
+            "tokenId": "0x0000000000000000000000000000000000000000000000000000000000004613",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000064"
+          }
+        ]
+      },
+      {
+        "holderAddress": "0x729165ed63f9c910e5c5a24ddf594d42b07b7665",
+        "tokenBalances": [
+          {
+            "tokenId": "0x00000000000000000000000000000000000000000000000000000000000045fd",
+            "balance": "0x0000000000000000000000000000000000000000000000000000000000000001"
+          }
+        ]
+      }
+    ],
+    "pageId": "ai000000-0000-0000-0000-0000RzaDWnMr"
+  }
+}
 ```
