@@ -1760,7 +1760,7 @@ CURL request
 
 ```shell
 curl -X 'POST' \
-  'https://apus-swagger.fe.nodereal.cc/nr_getNFTCollectionHolders' \
+  'https://bsc-mainnet.nodereal.io/v1/{your-api-key}' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
