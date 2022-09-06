@@ -14,7 +14,7 @@ The subgraph definition consists of a few files:
 
 
 
-### How It Works
+### How NodeReal DeFi API Works
 
 **Basically, we rewrote our client's SubGraph into Golang code, and connect the code with our pre-indexed Blocks and States data.**
 
