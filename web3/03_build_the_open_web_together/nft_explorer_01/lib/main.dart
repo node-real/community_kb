@@ -1,15 +1,54 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:jsonrpc2/jsonrpc2.dart';
-import 'package:web_socket_channel/io.dart';
-import 'package:rpc_exceptions/rpc_exceptions.dart';
-// import 'package:jsonrpc2/jsonrpc_client.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
+class HttpServerProxy extends ServerProxyBase {
+  /// customHeaders, for jwts and other niceties
+  Map<String, String> customHeaders;
+
+  /// constructor. superize properly
+  HttpServerProxy(url, [this.customHeaders = const <String, String>{}])
+      : super(url);
+
+  /// Return a Future with the JSON-RPC response
+  @override
+  Future<String> transmit(String package) async {
+    /// This is HttpRequest from dart:html
+    var headers = {'Content-Type': 'application/json; charset=UTF-8'};
+    if (customHeaders.isNotEmpty) {
+      headers.addAll(customHeaders);
+    }
+
+    // useful for debugging!
+    // print(package);
+    var resp =
+        await http.post(Uri.parse(resource), body: package, headers: headers);
+
+    var body = resp.body;
+    if (resp.statusCode == 204 || body.isEmpty) {
+      return ''; // we'll return an empty string for null response
+    } else {
+      return body;
+    }
+  }
+
+}
+
+/// see the documentation in [BatchServerProxyBase]
+class HttpBatchServerProxy extends BatchServerProxyBase {
+  @override
+  dynamic proxy;
+
+  /// constructor
+  HttpBatchServerProxy(String url, [customHeaders = const <String, String>{}]) {
+    proxy = HttpServerProxy(url, customHeaders);
+  }
+}
 
 
 class MyApp extends StatelessWidget {
@@ -59,50 +98,43 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   String _nft_address = "";
   String _nft_tokenid = "";
+  String _image = "https://www.nodereal.io/static/nodereal/images/home/logo-nodereal.png";
 
   // Create a text controller and use it to retrieve the current value
   // of the TextField.
   final nftAddController = TextEditingController();
   final nftTokenIDController = TextEditingController();
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
+  Future<dynamic> _loadNFTMeta() async{
+      String _url = "https://bsc-mainnet.nodereal.io/v1/d3cc77ad94d64c9384e9305b3ca71f22";
+      HttpServerProxy _proxy = HttpServerProxy(_url);
+      //var _response =  await _proxy.call("nr_getNFTMeta", [_nft_address, 0x7C7,"ERC721"]);;
+      var _response =  await _proxy.call("nr_getNFTMeta", [_nft_address, _nft_tokenid,"ERC721"]);;
+      return _response;
   }
 
-  void _retrieveNFTMetadata(){
+  void _retrieveNFTMetadata() {
+    _nft_address = nftAddController.text;
+    _nft_tokenid = nftTokenIDController.text;
+    _loadNFTMeta().then((result) => {
+        _image = (json.decode(result["meta"]))["image"],
+        _refresh(_image),      
+    });
+
+  }
+
+  void _refresh(String image){
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen
-      _nft_address = nftAddController.text;
-      _nft_tokenid = nftTokenIDController.text;
-      String _url = "https://bsc-mainnet.nodereal.io/v1/d3cc77ad94d64c9384e9305b3ca71f22";
-      // ServerProxy _proxy = ServerProxy(_url);
-      // var _response = _proxy.call("nr_getNFTMeta", [_nft_address, 0x7C7, "ERC721"]);
-      // try{
-      //    _proxy.checkError(_response);
-      // }on RpcException catch(e){
-      //     showDialog(
-      //       context: context,
-      //       builder: (context) {
-      //         return AlertDialog(
-      //           // Retrieve the text the that user has entered by using the
-      //           // TextEditingController.
-      //           content: Text("Error happened"),
-      //         );
-      //       },
-      //     );
-      // }
-      
+    _image = image;
+    print(_image);
+    _counter = 1;
+    
+
     });
   }
 
@@ -149,6 +181,9 @@ class _MyHomePageState extends State<MyHomePage> {
               controller: nftTokenIDController,
             ),
             SizedBox(height: 5),
+            Image(
+              image: NetworkImage(_image),
+            ),
           ],
         ),
       ),
