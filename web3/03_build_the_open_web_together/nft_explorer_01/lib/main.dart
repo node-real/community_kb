@@ -1,9 +1,16 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 
+import 'package:jsonrpc2/jsonrpc2.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:rpc_exceptions/rpc_exceptions.dart';
+// import 'package:jsonrpc2/jsonrpc_client.dart';
+
 void main() {
   runApp(const MyApp());
 }
+
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -78,16 +85,24 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen
       _nft_address = nftAddController.text;
       _nft_tokenid = nftTokenIDController.text;
-      // showDialog(
+      String _url = "https://bsc-mainnet.nodereal.io/v1/d3cc77ad94d64c9384e9305b3ca71f22";
+      // ServerProxy _proxy = ServerProxy(_url);
+      // var _response = _proxy.call("nr_getNFTMeta", [_nft_address, 0x7C7, "ERC721"]);
+      // try{
+      //    _proxy.checkError(_response);
+      // }on RpcException catch(e){
+      //     showDialog(
       //       context: context,
       //       builder: (context) {
       //         return AlertDialog(
       //           // Retrieve the text the that user has entered by using the
       //           // TextEditingController.
-      //           content: Text(_nft_address),
+      //           content: Text("Error happened"),
       //         );
       //       },
       //     );
+      // }
+      
     });
   }
 
