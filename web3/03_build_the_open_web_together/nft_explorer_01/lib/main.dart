@@ -183,7 +183,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(height: 10),
             Text("NFT Name: " + _name),
-            // 
             SizedBox(height: 10),
             Image(
               image: NetworkImage(_image),
