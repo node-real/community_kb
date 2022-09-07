@@ -99,7 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
   String _nft_address = "";
   String _nft_tokenid = "";
   String _image = "https://www.nodereal.io/static/nodereal/images/home/logo-nodereal.png";
-
+  String _name = "";
+  String _desc = "";
   // Create a text controller and use it to retrieve the current value
   // of the TextField.
   final nftAddController = TextEditingController();
@@ -108,7 +109,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<dynamic> _loadNFTMeta() async{
       String _url = "https://bsc-mainnet.nodereal.io/v1/d3cc77ad94d64c9384e9305b3ca71f22";
       HttpServerProxy _proxy = HttpServerProxy(_url);
-      //var _response =  await _proxy.call("nr_getNFTMeta", [_nft_address, 0x7C7,"ERC721"]);;
       var _response =  await _proxy.call("nr_getNFTMeta", [_nft_address, _nft_tokenid,"ERC721"]);;
       return _response;
   }
@@ -118,12 +118,14 @@ class _MyHomePageState extends State<MyHomePage> {
     _nft_tokenid = nftTokenIDController.text;
     _loadNFTMeta().then((result) => {
         _image = (json.decode(result["meta"]))["image"],
-        _refresh(_image),      
+        _name = (json.decode(result["meta"]))["name"],
+        _desc = (json.decode(result["meta"]))["description"],
+        _refresh(_image, _name, _desc),      
     });
 
   }
 
-  void _refresh(String image){
+  void _refresh(String image,String name, String desc){
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -131,6 +133,8 @@ class _MyHomePageState extends State<MyHomePage> {
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen
     _image = image;
+    _name = name;
+    _desc = desc;
     print(_image);
     _counter = 1;
     
@@ -151,9 +155,6 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Container(
-        // const Image(
-        //       image: NetworkImage('https://www.nodereal.io/static/nodereal/images/home/logo-nodereal.png'),
-        // )
         child: Column(
           children: [
             Image(
@@ -180,10 +181,13 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               controller: nftTokenIDController,
             ),
-            SizedBox(height: 5),
+            SizedBox(height: 10),
+            Text("NFT Name: " + _name),
+            SizedBox(height: 10),
             Image(
               image: NetworkImage(_image),
             ),
+            
           ],
         ),
       ),
