@@ -26,9 +26,9 @@ class GroupViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
 
-class HelloView(APIView):
+class HealthView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def get(self, request):
-        content = {'message': 'Hello, World!'}
+        content = {'message': 'Normal Status'}
         return Response(content)
