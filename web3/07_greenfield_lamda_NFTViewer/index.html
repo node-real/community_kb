@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serverless NFT Metadata Viewer</title>
+  <style>
+    #metadata img {
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+  <script>
+    async function getNFTMetadata() {
+      const metadataUrl = document.getElementById('metadataUrl').value;
+      const apiUrl = 'https://fu21y7o6v1.execute-api.us-east-2.amazonaws.com/Prod/metadata?metadata_url=' + encodeURIComponent(metadataUrl);
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+
+      // Retrieve the file URL from the metadata
+      const fileUrl = data.image;
+
+      // Create an <img> element and set its source to the file URL
+      const img = document.createElement('img');
+      img.src = fileUrl;
+
+      // Append the <img> element to the page
+      const metadataElement = document.getElementById('metadata');
+      metadataElement.innerHTML = '';
+      metadataElement.appendChild(img);
+    }
+  </script>
+</head>
+<body>
+  <h1>Serverless NFT Metadata Viewer</h1>
+  <input type="text" id="metadataUrl" placeholder="Enter NFT metadata URL">
+  <button onclick="getNFTMetadata()">Get Metadata</button>
+  <div id="metadata"></div>
+</body>
+</html>
