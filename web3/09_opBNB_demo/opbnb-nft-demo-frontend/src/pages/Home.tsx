@@ -1,3 +1,5 @@
+import NFTCONTRACT_JSON from 'src/base/contract/BoredPetsNFT.json';
+import MARKETPLACE_JSON from 'src/base/contract/Marketplace.json';
 import styled from '@emotion/styled';
 import { Button, Flex, Input } from '@totejs/uikit';
 import useScroll from '../hooks/useScroll';
@@ -11,8 +13,7 @@ import { AbiItem } from 'web3-utils';
 const MARKETPLACE_ADDRESS = '0xf3756EeD238Fd6C4d3492791d45490680A584BE0';
 const NFT_CONTRACT_ADDRESS = '0xA650FA311C7b4976Ee08185883D3FC152bFa205F';
 const LISTING_FEE = 100000000000000;
-import NFTCONTRACT_JSON from 'src/base/contract/BoredPetsNFT.json';
-import MARKETPLACE_JSON from 'src/base/contract/Marketplace.json';
+
 const NFTCONTRACT_ABI = NFTCONTRACT_JSON.abi as AbiItem[];
 const MARKETPLACE_ABI = MARKETPLACE_JSON.abi as AbiItem[];
 

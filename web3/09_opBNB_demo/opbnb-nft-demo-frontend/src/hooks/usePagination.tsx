@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 import { useCallback, useState, useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
