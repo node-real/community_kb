@@ -1,14 +1,9 @@
-# GreenField Marketplace
-
-Greenfield Data marketplace is a data exchange platform where users can freely create, list, trade, and sell data assets, including digital publications, scientific experimental data, and specific domain data, or even NFT can be treated as a kind of data.
 
 ### Start the project
 
 Clone the project and install dependencies:
 
 ```bash
-> git clone https://github.com/bnb-chain/greenfield-data-marketplace-frontend.git
-> cd greenfield-data-marketplace-frontend
 > pnpm install
 > cp .env.example .env.development.local
 ```
@@ -53,14 +48,6 @@ then build example:
 ```
 
 finally, you can see the output resources in the build directory
-
-## Contribution
-
-Look over [CONTRIBUTING](./CONTRIBUTING.md)
-
-## Disclaimer
-
-Look over [DISCLAIMER](./DISCLAIMER.md)
 
 ## License
 
